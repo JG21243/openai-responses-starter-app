@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MessageItem } from "@/lib/assistant";
 import React from "react";
 import ReactMarkdown from "react-markdown";

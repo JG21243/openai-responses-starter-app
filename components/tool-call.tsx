@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ToolCallItem } from "@/lib/assistant";
-import { BookOpenText, Globe, Zap, Loader2, Code, Search } from "lucide-react";
+import { BookOpenText, Globe, Loader2, Code, Search } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
