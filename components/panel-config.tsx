@@ -28,18 +28,18 @@ export default function PanelConfig({
   };
 
   return (
-    <div className={`rounded-lg border ${
+    <div className={`rounded-lg border transition-all ${
       enabled 
-        ? 'border-indigo-200 dark:border-indigo-900 bg-indigo-50/30 dark:bg-indigo-900/20' 
+        ? 'border-indigo-200 dark:border-indigo-900 bg-gradient-to-br from-indigo-50/70 to-purple-50/40 dark:from-indigo-900/20 dark:to-purple-900/10 shadow-sm' 
         : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
-      } transition-colors`}>
+      }`}>
       <div className="p-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
             {icon && (
               <div className={`p-1.5 rounded-md ${
                 enabled 
-                  ? 'bg-indigo-100 dark:bg-indigo-800 text-indigo-600 dark:text-indigo-300' 
+                  ? 'bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-800 dark:to-purple-800 text-indigo-600 dark:text-indigo-300 shadow-sm' 
                   : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
                 }`}>
                 {icon}
@@ -50,7 +50,7 @@ export default function PanelConfig({
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button className="text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400">
+                    <button className="text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 transition-colors">
                       <InfoIcon size={14} />
                     </button>
                   </TooltipTrigger>
@@ -66,11 +66,15 @@ export default function PanelConfig({
             checked={enabled}
             onCheckedChange={handleToggle}
             disabled={disabled}
-            className="data-[state=checked]:bg-indigo-600"
+            className="data-[state=checked]:bg-gradient-to-r from-indigo-500 to-purple-600"
           />
         </div>
       </div>
-      {enabled && <div className="mt-1">{children}</div>}
+      {enabled && (
+        <div className="mt-1 transition-all">
+          {children}
+        </div>
+      )}
     </div>
   );
 }
