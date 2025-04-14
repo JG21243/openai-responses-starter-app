@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { NextResponse } from "next/server";
 
 const openai = new OpenAI();
 
@@ -8,9 +9,12 @@ export async function POST(request: Request) {
     const vectorStore = await openai.vectorStores.create({
       name,
     });
-    return new Response(JSON.stringify(vectorStore), { status: 200 });
+    return NextResponse.json(vectorStore, { status: 200 });
   } catch (error) {
     console.error("Error creating vector store:", error);
-    return new Response("Error creating vector store", { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Error creating vector store" },
+      { status: 500 }
+    );
   }
 }

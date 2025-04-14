@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { NextResponse } from "next/server";
 
 const openai = new OpenAI();
 
@@ -11,9 +12,12 @@ export async function POST(request: Request) {
         file_id: fileId,
       }
     );
-    return new Response(JSON.stringify(vectorStore), { status: 200 });
+    return NextResponse.json(vectorStore, { status: 200 });
   } catch (error) {
     console.error("Error adding file:", error);
-    return new Response("Error adding file", { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Error adding file" },
+      { status: 500 }
+    );
   }
 }

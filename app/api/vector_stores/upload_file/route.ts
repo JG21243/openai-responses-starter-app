@@ -4,6 +4,7 @@ import { join } from "path";
 import { tmpdir } from "os";
 import { randomUUID } from "crypto";
 import fs from "fs";
+import { NextResponse } from "next/server";
 
 const openai = new OpenAI();
 
@@ -22,11 +23,11 @@ export async function POST(request: Request) {
       purpose: "assistants",
     });
 
-    return new Response(JSON.stringify(file), { status: 200 });
+    return NextResponse.json(file, { status: 200 });
   } catch (error: any) {
     console.error("Error uploading file:", error);
-    return new Response(
-      JSON.stringify({ error: `Error uploading file: ${error?.message || "Unknown error"}` }), 
+    return NextResponse.json(
+      { error: `Error uploading file: ${error?.message || "Unknown error"}` },
       { status: 500 }
     );
   }

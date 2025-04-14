@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 export async function GET() {
   try {
     // Fetch a programming joke
@@ -12,11 +14,12 @@ export async function GET() {
         ? `${jokeData.setup} - ${jokeData.delivery}`
         : jokeData.joke;
 
-    return new Response(JSON.stringify({ joke }), { status: 200 });
+    return NextResponse.json({ joke }, { status: 200 });
   } catch (error) {
     console.error("Error fetching joke:", error);
-    return new Response(JSON.stringify({ error: "Could not fetch joke" }), {
-      status: 500,
-    });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Could not fetch joke" },
+      { status: 500 }
+    );
   }
 }

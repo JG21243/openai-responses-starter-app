@@ -1,3 +1,5 @@
+import { NextResponse } from "next/server";
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -11,9 +13,10 @@ export async function GET(request: Request) {
     const geoData = await geoRes.json();
 
     if (!geoData.length) {
-      return new Response(JSON.stringify({ error: "Invalid location" }), {
-        status: 404,
-      });
+      return NextResponse.json(
+        { error: "Invalid location" },
+        { status: 404 }
+      );
     }
 
     const { lat, lon } = geoData[0];
@@ -41,19 +44,21 @@ export async function GET(request: Request) {
       index !== -1 ? weather.hourly.temperature_2m[index] : null;
 
     if (currentTemperature === null) {
-      return new Response(
-        JSON.stringify({ error: "Temperature data unavailable" }),
+      return NextResponse.json(
+        { error: "Temperature data unavailable" },
         { status: 500 }
       );
     }
 
-    return new Response(JSON.stringify({ temperature: currentTemperature }), {
-      status: 200,
-    });
+    return NextResponse.json(
+      { temperature: currentTemperature },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error getting weather:", error);
-    return new Response(JSON.stringify({ error: "Error getting weather" }), {
-      status: 500,
-    });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Error getting weather" },
+      { status: 500 }
+    );
   }
 }
